@@ -9,7 +9,7 @@ namespace RecursiveCalculations {
         /// <param name="input"></param>
         /// <param name="ans"></param>
         /// <returns></returns>
-        public int FactorialRec (int input, int ans) {
+        public int FactorialRec (int input, int ans = 1) {
             if (input == 0) {
                 return ans;
             }
@@ -19,28 +19,27 @@ namespace RecursiveCalculations {
         }
 
         /// <summary>
-        /// Checks if num is a Fibonacci Number
+        /// Checks if num is a Fibonacci Number.  Initialise num1 and num2 = 1;
         /// </summary>
         /// <param name="num"></param>
+        /// <param name="num1"></param>
+        /// <param name="num2"></param>
         /// <returns></returns>
-        public bool FibCheck (int num) {
-            int ans = 0;
-            int a = 1, b = 1;
-
-            if (num == 1) {
+        public bool FibCheck (int num, int num1 = 1, int num2 = 1) {
+            if (num == num1 || num == num2) {
                 return true;
             }
 
-            while (ans < num) {
-                ans = a + b;
-                if (ans == num) {
-                    return true;
-                }
-
-                a = b;
-                b = ans;
+            if (num < num2) {
+                return false;
             }
-            return false;
+
+            var tmp = num1;
+            num1 = num2;
+            num2 = tmp + num2;
+
+            return FibCheck(num, num1, num2);
+            
         }
 
         /// <summary>
@@ -49,7 +48,7 @@ namespace RecursiveCalculations {
         /// <param name="num"></param>
         /// <param name="divisor"></param>
         /// <returns></returns>
-        public bool PrimeCheckRec (int num, int divisor) {
+        public bool PrimeCheckRec (int num, int divisor = 2) {
             if (num == divisor) {
                 return true;
             }
@@ -68,11 +67,11 @@ namespace RecursiveCalculations {
         /// <param name="num2"></param>
         /// <param name="numFibs"></param>
         /// <returns></returns>
-        public int FibonacciRec (int num1, int num2, int numFibs) {
+        public int FibonacciRec (int numFibs, int num1 = 1, int num2 = 1) {
             if (numFibs > 0) {
                 numFibs--;
                 num2 = num1 + num2;
-                return FibonacciRec (num2, num2 + num1, numFibs);
+                return FibonacciRec (numFibs, num2, num2 + num1);
             }
             return num2 + num1;
         }
